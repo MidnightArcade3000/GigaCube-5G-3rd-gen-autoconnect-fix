@@ -13,5 +13,5 @@ tar -I 'gzip -9' --owner=0 --group=0 -cf ../backup/cfg.tar.tgz *
 cd ../backup
 tar -I 'gzip -9' --owner=0 --group=0 -cf - * | openssl aes-256-cbc -e -salt -k 123456 -in - -out ../tmp_backupdir/backupbin
 cd ../..
-cp configure.bin configure.bin.ORIG
+cp configure.bin configure.bin.orig
 tar -I 'gzip -9' --owner=0 --group=0 -cf configure.bin tmp/tmp_backupdir/

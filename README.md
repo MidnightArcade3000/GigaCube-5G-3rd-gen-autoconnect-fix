@@ -7,6 +7,8 @@ Feel free to add your own APN to the JSON files - make sure to follow the syntax
 
 Recommended thread on the OpenWRT forums: https://forum.openwrt.org/t/openwrt-support-for-vodafone-gigacube-b157/150371/197
 
+Tested with firmware: HH500V_VDFDE_V2.0.0B19
+
 How to use the script
 ---------------------
 The main component of this set of files is "hh500v_mod.sh".

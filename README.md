@@ -5,6 +5,8 @@ This set of sh-scripts and JSON-files will fix this issue and, if you want, prov
 Further files can be altered and modified, if you desire to do so. There are quite some options which can be changed through modification of individual files, like "antenna.json".
 Feel free to add your own APN to the JSON files - make sure to follow the syntax, though.
 
+Recommended thread on the OpenWRT forums: https://forum.openwrt.org/t/openwrt-support-for-vodafone-gigacube-b157/150371/197
+
 How to use the script
 ---------------------
 The main component of this set of files is "hh500v_mod.sh".

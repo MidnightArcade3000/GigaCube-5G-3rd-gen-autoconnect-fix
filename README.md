@@ -38,8 +38,63 @@ Since the data written to the root partition of the device will survive a reboot
 
 I don't understand how to use the script, neither am I using Linux. What do I do?
 ---------------------------------------------------------------------------------
-There is a configure.bin file located in "modded config" - download configure.bin and verify the MD5 sum located in the same directory against the file you've downloaded. This file can be used via the "backup and restore" function in the WebGUI of your HH500V. It will not alter anything, except copying the prepared APN JSON files and runonce.sh. Then, after a reboot, runonce.sh is executed once after bootup and the "fix" is implemented. Your device will now automatically connect to the mobile network depending on your operator. This "ready to use" mod is currently only implementing access point definitions for the three largest german network operators.
+There is a configure.bin file located in "modded_config" - download configure.bin and verify the MD5 sum located in the same directory against the file you've downloaded. This file can be used via the "backup and restore" function in the WebGUI of your HH500V. It will not alter anything, except copying the prepared APN JSON files and runonce.sh. Then, after a reboot, runonce.sh is executed once after bootup and the "fix" is implemented. Your device will now automatically connect to the mobile network depending on your operator. This "ready to use" mod is currently only implementing access point definitions for the three largest german network operators.
 
 Man, you did a crappy job. I can do better!
 -------------------------------------------
+
 Sorry! :) I'm not a programmer - just a curious person. So, if you can contribute, do so! I'll be more than happy to merge any meaningful changes.
+
+Über dieses Projekt
+-------------------
+
+Der TCL HH500V 5G Linkhub, der von Vodafone zwischen Ende 2021 und Mitte 2023 auch als „GigaCube 5G“ verkauft wurde, ist in seiner gebrandeten Version nicht in der Lage, sich automatisch über LTE/5G mit unbekannten Netzwerken zu verbinden. Falls eine SIM-Karte eingelegt wird, die dem System nicht den korrekten APN übermittelt, muss manuell ein Profil hinzugefügt werden. Leider deaktiviert dies die automatische Wiederverbindung zum Mobilfunknetz, falls die Verbindung (beispielsweise durch einen Neustart) unterbrochen wird. Oftmals ist zu beobachten, dass eine SIM-Karte „ims“ als „Attach Access Point“ anstelle des gewünschten APNs übergibt.
+
+Diese Sammlung von sh-Skripten und JSON-Dateien behebt dieses Problem und stellt auf Wunsch eine Root-Shell auf Port 42000 zur Verfügung. Die Root-Shell ist nur verfügbar, wenn du entweder das Passwort entfernst oder es gemäß der unten stehenden Anleitung ändern.
+Weitere Dateien können nach Belieben angepasst und modifiziert werden. Es gibt etliche Optionen, die durch die Bearbeitung einzelner Dateien, wie z. B. „antenna.json“, geändert werden können.
+
+Füge gerne deine eigenen APNs zu den JSON-Dateien hinzu – achte aber darauf, die Syntax einzuhalten.
+
+Empfohlener Thread im OpenWRT-Forum: https://forum.openwrt.org/t/openwrt-support-for-vodafone-gigacube-b157/150371/197
+
+Getestet mit Firmware: HH500V_VDFDE_V2.0.0B19
+
+Verwendung des Skripts
+----------------------
+
+Die Hauptkomponente dieses Dateisatzes ist „hh500v_mod.sh“.
+Das Skript nutzt gängige Programme wie „openssl“, „cp“, „sed“, „tar“ und so weiter. Das Skript selbst weist keine Besonderheiten auf.
+
+Hier sind einige Anwendungsfälle:
+
+Du willst SSH aktivieren, das Root-Passwort entfernen, die geänderten APN-JSON-Dateien sowie „runonce.sh“ in eine modifizierte „configure.bin“-Datei kopieren:
+
+./hh500v_mod.sh -s y -u n -p n
+
+Du willst die configure.bin nur entpacken und entschlüsseln?
+
+./hh500v_mod.sh -s n -u y -p n
+
+Du willst eine modifizierte Version der configure.bin packen und verschlüsseln?
+
+./hh500v_mod.sh -s n -u n -p y
+
+Was kann schiefgehen?
+---------------------
+
+Abhängig davon, was du innerhalb von tmp/cfg/etc änderst, könnten Konfigurationsdateien oder Funktionen kaputtgehen, die von Modulen oder Skripten benötigt werden, um das Gerät am Laufen zu halten. Wenn du nicht genau weißt, was du tust, dann sei dir im Klaren darüber, dass du die Sicherheit des Gerätes gefährden oder das Gerät unbrauchbar machen (bricken) kannst. Obwohl das unwahrscheinlich ist, kann es trotzdem passieren. Verwende das Skript daher mit Vorsicht und denke daran, dass du die Konsequenzen deiner Änderungen verstehen solltest.
+
+Ich habe einen Fehler gemacht. Was soll ich tun?
+------------------------------------------------
+
+Da die auf die Root-Partition des Geräts geschriebenen Daten einen Neustart überdauern, wird erst ein Werksreset alle Änderungen rückgängig machen – dank der Tatsache, dass nicht in das eigentliche zugrunde liegende Firmware-Image geschrieben wird, sondern nur in ein Overlay-Dateisystem. Wenn also etwas schiefgelaufen ist, führe einen Werksreset durch und fang nochmal von vorne an. ABER: Wenn du Tools verwendet hast, die versuchen, ein Firmware-Upgrade durchzuführen, hast du möglicherweise das originale Firmware-Image beschädigt. In diesem Fall hilft ein Werksreset möglicherweise nicht weiter.
+
+Ich verstehe nicht, wie man das Skript benutzt, und ich verwende auch kein Linux. Was mache ich?
+------------------------------------------------------------------------------------------------
+
+Im Ordner „modded_config“ befindet sich eine configure.bin-Datei. Lade diese herunter und vergleiche die MD5-Summe im selben Verzeichnis mit der Datei, die du heruntergeladen hast. Diese Datei kann über die Funktion „Sichern und Wiederherstellen“ im WebGUI deines HH500V verwendet werden. Sie ändert nichts, außer die vorbereiteten APN-JSON-Dateien und runonce.sh zu kopieren. Nach einem Neustart wird runonce.sh einmalig ausgeführt und der „Fix“ implementiert. Dein Gerät wird sich nun je nach Netzbetreiber automatisch mit dem Mobilfunknetz verbinden. Dieser „Ready-to-use“-Mod implementiert derzeit nur Access-Point-Definitionen für die drei größten deutschen Netzbetreiber.
+
+Mensch, du hast echt miese Arbeit geleistet. Das kann ich besser!
+-----------------------------------------------------------------
+Sorry! :) Ich bin kein Programmierer – nur eine neugierige Person. Wenn du etwas beitragen kannst, dann mach das gern! Ich bin gerne bereit, sinnvolle Änderungen zu mergen.
+

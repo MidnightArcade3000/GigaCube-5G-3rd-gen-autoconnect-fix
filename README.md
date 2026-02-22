@@ -13,12 +13,15 @@ The script uses common programs, like "openssl", "cp", "sed", "tar" and so on. T
 Here are some use-cases:
 
 You want to enable SSH, remove the password for root, copy the altered APN JSON files and "runonce.sh" over to a modified "configure.bin" file:
+
 ./hh500v_mod.sh -s y -u n -p n
 
 You want to unpack and decrypt configure.bin only?
+
 ./hh500v_mod.sh -s n -u y -p n
 
 You want to pack and encrypt a modified version of configure.bin?
+
 ./hh500v_mod.sh -s n -u n -p y
 
 What can go wrong?

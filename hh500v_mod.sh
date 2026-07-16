@@ -132,3 +132,4 @@ then
     tar -I 'gzip -9' --owner=0 --group=0 -cf - * | openssl aes-256-cbc -e -salt -k 123456 -in - -out ../tmp_backupdir/backupbin
     cd ../..
     tar -I 'gzip -9' --owner=0 --group=0 -cf configure.bin tmp/tmp_backupdir/
+fi
